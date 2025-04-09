@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package define.uvproto_page;
+
+option go_package = "gitlab.yyle.com/golang/uvproto.git/define/uvproto_page;uvproto_page";
+option java_multiple_files = true;
+option java_package = "define.uvproto_page";
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+// 分页请求
+message Page {
+  uint32 page = 1;  // 页码序号
+  uint32 size = 2;  // 页面大小
+  uint32 base =
+      3;  // 页码起始，设置页码是从0开始的(后端对接常用)，还是从1开始的(前端展示常用的)
+}
+
+// 分页请求
+message Page0B {
+  uint32 page = 1;  // 页码序号，页码从0开始
+  uint32 size = 2;  // 页面大小
+}
+
+// 分页请求
+message Page1B {
+  uint32 page = 1;  // 页码序号，页码从1开始
+  uint32 size = 2;  // 页面大小
+}
+
+// 分页响应
+message PageResp {
+  uint32 page = 1;        // 页码序号
+  uint32 page_limit = 2;  // 页面大小
+  uint32 page_count = 3;  // 页面总数
+  uint32 data_count = 4;  // 记录总数
+}

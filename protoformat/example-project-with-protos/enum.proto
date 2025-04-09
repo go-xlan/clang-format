@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package define.uvproto_enum;
+
+option go_package = "gitlab.yyle.com/golang/uvproto.git/define/uvproto_enum;uvproto_enum";
+option java_multiple_files = true;
+option java_package = "define.uvproto_enum";
+
+message Enum {
+  int32 code = 1;   // 数字编码
+  string name = 2;  // 枚举名称
+  string desc = 3;  // 枚举描述-就是自定义的描述-也可随着语言而变化
+}
+
+enum StatusEnum {
+  UNKNOWN = 0;
+  SUCCESS = 1;
+  FAILURE = 2;
+}
