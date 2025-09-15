@@ -1,28 +1,47 @@
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/go-xlan/clang-format/release.yml?branch=main&label=BUILD)](https://github.com/go-xlan/clang-format/actions/workflows/release.yml?query=branch%3Amain)
+[![GoDoc](https://pkg.go.dev/badge/github.com/go-xlan/clang-format)](https://pkg.go.dev/github.com/go-xlan/clang-format)
+[![Coverage Status](https://img.shields.io/coveralls/github/go-xlan/clang-format/main.svg)](https://coveralls.io/github/go-xlan/clang-format?branch=main)
+[![Supported Go Versions](https://img.shields.io/badge/Go-1.22-lightgrey.svg)](https://go.dev/)
+[![GitHub Release](https://img.shields.io/github/release/go-xlan/clang-format.svg)](https://github.com/go-xlan/clang-format/releases)
+[![Go Report Card](https://goreportcard.com/badge/github.com/go-xlan/clang-format)](https://goreportcard.com/report/github.com/go-xlan/clang-format)
+
 # clang-format
 
-clang-format 的 Go 封装工具，专为 Protocol Buffers 格式化而设计。
+clang-format 的 Go 封装工具，支持 Protocol Buffers 和 C/C++ 批量格式化功能。
 
+---
+
+<!-- TEMPLATE (ZH) BEGIN: LANGUAGE NAVIGATION -->
 ## 英文文档
 
 [ENGLISH README](README.md)
+<!-- TEMPLATE (ZH) END: LANGUAGE NAVIGATION -->
 
 ## 核心特性
 
-🎯 **智能 Proto 格式化**: 智能的 clang-format 包装器，默认使用 Google 样式  
-⚡ **双重操作模式**: 支持预览（DryRun）和就地格式化两种模式  
+🎯 **智能 Proto 格式化**: 智能的 clang-format 包，默认使用 Google 样式  
+⚡ **两种操作模式**: 支持预览（DryRun）和就地格式化两种模式  
 🔄 **批量处理**: 递归的项目级 .proto 文件格式化  
 🌍 **可配置样式**: 支持 JSON 配置的自定义格式化样式  
 📋 **全面日志**: 详细的操作日志和结构化输出
 
 ## 安装
 
+### 获取包
+
 ```bash
-go install github.com/go-xlan/clang-format@latest
+go get github.com/go-xlan/clang-format@latest
+```
+
+### 获取 CLI 命令
+
+```bash
+go install github.com/go-xlan/clang-format/cmd/clang-format-batch@latest
 ```
 
 ## 前置要求
 
-在系统中安装 clang-format：
+作为必要条件配置 clang-format：
 
 ```bash
 # macOS
@@ -35,7 +54,25 @@ sudo apt-get install clang-format
 clang-format --version
 ```
 
-## 使用方法
+## 快速开始
+
+### 命令行使用
+
+```bash
+# 格式化当前项目中的所有 .proto 文件
+clang-format-batch --extensions=".proto"
+
+# 格式化 C/C++ 文件
+clang-format-batch --extensions=".c,.cpp,.h"
+
+# 格式化多种文件类型
+clang-format-batch --extensions=".proto,.c,.cpp,.h"
+
+# 使用短标志
+clang-format-batch -e ".proto,.cc,.hh"
+```
+
+## 库使用方法
 
 ### Protocol Buffers 格式化（主要功能）
 
@@ -116,6 +153,7 @@ type Style struct {
 ```
 
 <!-- TEMPLATE (ZH) BEGIN: STANDARD PROJECT FOOTER -->
+<!-- VERSION 2025-09-06 04:53:24.895249 +0000 UTC -->
 
 ## 📄 许可证类型
 
@@ -135,7 +173,7 @@ MIT 许可证。详见 [LICENSE](LICENSE)。
 - 🔧 **配置困扰？** 询问复杂设置的相关问题
 - 📢 **关注进展？** 关注仓库以获取新版本和功能
 - 🌟 **成功案例？** 分享这个包如何改善工作流程
-- 💬 **意见反馈？** 欢迎所有建议和宝贵意见
+- 💬 **反馈意见？** 欢迎提出建议和意见
 
 ---
 
@@ -170,7 +208,7 @@ MIT 许可证。详见 [LICENSE](LICENSE)。
 - 📝 **撰写博客**关于开发工具和工作流程 - 我们提供写作支持
 - 🌟 **加入生态** - 致力于支持开源和（golang）开发场景
 
-**使用这个包快乐编程！** 🎉
+**使用这个包编程快乐！** 🎉
 
 <!-- TEMPLATE (ZH) END: STANDARD PROJECT FOOTER -->
 

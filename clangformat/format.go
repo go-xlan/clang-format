@@ -10,8 +10,15 @@
 package clangformat
 
 import (
+	"os"
+
+	"github.com/go-xlan/clang-format/internal/utils"
+	"github.com/yyle88/erero"
 	"github.com/yyle88/neatjson/neatjsons"
 	"github.com/yyle88/osexec"
+	"github.com/yyle88/osexistpath/osmustexist"
+	"github.com/yyle88/zaplog"
+	"go.uber.org/zap"
 )
 
 // Style represents the configuration structure for clang-format styling options
@@ -79,4 +86,32 @@ func Format(config *osexec.ExecConfig, protoPath string, style *Style) (output [
 // 验证: clang-format --version
 func run(config *osexec.ExecConfig, args []string) (output []byte, err error) {
 	return config.Exec("clang-format", args...)
+}
+
+// FormatProject executes clang-format on files with specified extension in a project directory
+// Walks through the project structure and formats all matching source files
+// Takes a single extension parameter to process one file type at a time
+// Returns error if any formatting operation fails during project navigation
+//
+// FormatProject 对项目目录中指定扩展名的文件执行 clang-format
+// 遍历项目结构并格式化所有匹配的源文件
+// 接受单个扩展名参数，一次处理一种文件类型
+// 如果在项目导航过程中任何格式化操作失败则返回错误
+func FormatProject(config *osexec.ExecConfig, projectPath string, extension string, style *Style) error {
+	if err := utils.WalkFilesWithExt(projectPath, extension, func(path string, info os.FileInfo) error {
+		zaplog.LOG.Debug("clang-format", zap.String("path", path))
+		osmustexist.MustFile(path)
+
+		output, err := Format(config, path, style)
+		if err != nil {
+			return erero.Wro(err)
+		}
+		if len(output) > 0 {
+			zaplog.LOG.Debug("clang-format", zap.String("path", path), zap.ByteString("output", output))
+		}
+		return nil
+	}); err != nil {
+		return erero.Wro(err)
+	}
+	return nil
 }

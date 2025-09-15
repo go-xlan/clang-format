@@ -71,7 +71,7 @@ func Format(config *osexec.ExecConfig, protoPath string, style *clangformat.Styl
 // 使用智能文件遍历处理复杂的项目结构
 func FormatProject(config *osexec.ExecConfig, projectPath string, style *clangformat.Style) error {
 	if err := utils.WalkFilesWithExt(projectPath, ".proto", func(path string, info os.FileInfo) error {
-		zaplog.LOG.Debug("proto-format", zap.String("proto_path", path))
+		zaplog.LOG.Debug("proto-format", zap.String("path", path))
 		osmustexist.MustFile(path)
 
 		output, err := Format(config, path, style)
@@ -79,7 +79,7 @@ func FormatProject(config *osexec.ExecConfig, projectPath string, style *clangfo
 			return erero.Wro(err)
 		}
 		if len(output) > 0 {
-			zaplog.LOG.Debug("proto-format", zap.String("proto_path", path), zap.ByteString("output", output))
+			zaplog.LOG.Debug("proto-format", zap.String("path", path), zap.ByteString("output", output))
 		}
 		return nil
 	}); err != nil {
